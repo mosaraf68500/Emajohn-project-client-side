@@ -9,8 +9,11 @@ const Shop = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([])
     const {totalCount}=useLoaderData();
-    console.log(totalCount);
 
+    const itemPerPages=10;
+    const numberOfPages=Math.ceil(totalCount/itemPerPages);
+    const pages=[...Array(numberOfPages).keys()];
+    console.log(pages)
     useEffect(() => {
         fetch('http://localhost:5000/products')
             .then(res => res.json())
@@ -83,6 +86,11 @@ const Shop = () => {
                         <button className='btn-proceed'>Review Order</button>
                     </Link>
                 </Cart>
+            </div>
+            <div className='pagination'>
+                {
+                    pages.map(page=><button>{page}</button>)
+                }
             </div>
         </div>
     );
